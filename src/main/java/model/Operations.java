@@ -10,10 +10,10 @@ public class Operations {
         this.length = array.length;
     }
 
-    public boolean finishGame() {
-        for (int i = 0; i < array.length; i++) {
+    boolean finishGame() {
+        for (Field[] fields : array) {
             for (int j = 0; j < array.length; j++) {
-                if (array[i][j].getSign() == Sign.EMPTY) {
+                if (fields[j].getSign() == Sign.EMPTY) {
                     return false;
                 }
             }
@@ -21,7 +21,7 @@ public class Operations {
         return true;
     }
 
-    public Sign checkIfIsWinner() {
+    Sign checkIfIsWinner() {
         if (checkHorizontal() != Sign.EMPTY) {
             return checkHorizontal();
         } else if (checkVertical() != Sign.EMPTY) {

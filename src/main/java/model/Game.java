@@ -2,10 +2,7 @@ package model;
 
 import mythrows.UnavailableField;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Scanner;
+import java.util.*;
 
 public class Game {
 
@@ -16,27 +13,22 @@ public class Game {
     public Game() {
     }
 
-    public Game init() {
-        List<User> users = new ArrayList<>();
-        User firstUser = new User("patka");
-        User secondUser = new User("marcin");
-        users.add(firstUser);
-        users.add(secondUser);
+    public Game init(Settings settings) {
 
-        Board board = Board.createBoard(3);
+        List<User> users = settings.getUsers();
+        Board board = settings.getBoard();
         Operations operations = new Operations(board.getPlayground());
-
-        Game game = new Game(users, board, operations);
-        game.settings();
-
-        game.getBoard().showBoard();
-        game.showMessageToUser("Welcome to my game. Start user with nick " +
-                game.getActiveUser().getNick() + " and sign " + Sign.RING);
-
-        return game;
+        return new Game(users, board, operations);
     }
 
-    public Game startGame() {
+    public Game showInformation() {
+        getBoard().showBoard();
+        showMessageToUser("Welcome to my game. Start user with nick " +
+                getActiveUser().getNick() + " and sign " + Sign.RING);
+        return this;
+    }
+
+    public Game startGame(Operations operations) {
         do {
             getValidDataFromUser().ifPresent(this::setSignToBoardAndChangeUser);
         } while (operations.checkIfIsWinner() == Sign.EMPTY && !operations.finishGame());
@@ -53,13 +45,13 @@ public class Game {
         changeActiveUser();
     }
 
-    public void showResult() {
+    public void showResult(Operations operations) {
         Sign sign = operations.checkIfIsWinner();
         if (sign != Sign.EMPTY) {
             User user = findUserWithSign(sign, users);
-            showMessageToUser("Wygrał : " + user.getNick());
+            showMessageToUser("The winner is : " + user.getNick());
         } else if (operations.finishGame()) {
-            showMessageToUser("Remis");
+            showMessageToUser("Draw.");
         }
     }
 
@@ -69,20 +61,14 @@ public class Game {
         return playAgain.equals("y");
     }
 
-    private Board getBoard() {
+    Board getBoard() {
         return board;
     }
 
-    private Game(List<User> userList, Board board, Operations operations) {
+    Game(List<User> userList, Board board, Operations operations) {
         this.users = userList;
         this.board = board;
         this.operations = operations;
-    }
-
-    private void settings() {
-        users.get(0).setSign(Sign.RING);
-        users.get(1).setSign(Sign.CROSS);
-        users.get(0).setActive(true);
     }
 
     private User getActiveUser() {
@@ -100,12 +86,12 @@ public class Game {
             int x = Integer.parseInt(xValue);
             int y = Integer.parseInt(yValue);
             if (x >= board.getSize() || y >= board.getSize()) {
-                showMessageToUser("Wprowadziłeś złe współrzędne. Współrzędnne nie mogą byc wieksze niż " + (board.getSize() - 1));
+                showMessageToUser("You entered wrong co-ordinates. Co-ordinates can not be more than " + (board.getSize() - 1));
             } else {
                 return Optional.of(new Pair(x, y));
             }
         } catch (NumberFormatException e) {
-            showMessageToUser("Wprowadziłeś niewłaściwy format danych");
+            showMessageToUser("You entered the wrong data.");
         }
         return Optional.empty();
     }
@@ -120,7 +106,7 @@ public class Game {
         }
     }
 
-    private User findUserWithSign(Sign sign, List<User> users) {
+    User findUserWithSign(Sign sign, List<User> users) {
         User user = null;
         for (User i : users) {
             if (i.getSign().equals(sign))
@@ -149,5 +135,9 @@ public class Game {
         int getY() {
             return y;
         }
+    }
+
+    public List<User> getUsers() {
+        return users;
     }
 }
