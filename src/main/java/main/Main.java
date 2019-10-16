@@ -9,6 +9,7 @@ public class Main {
     public static void main(String[] args) {
         do {
             Settings settings = new Settings();
+            settings.createBoardWithSize();
             Operations operations = new Operations(settings.getBoard().getPlayground());
             new Game()
                     .init(settings)

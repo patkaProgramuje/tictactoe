@@ -6,10 +6,12 @@ import java.util.Scanner;
 
 public class Settings {
 
+    private Board board;
+
     public Settings() {
     }
 
-    public List<User> getUsers() {
+    List<User> getUsers() {
         List<User> users = new ArrayList<>();
         int x = 1;
         while (x <= 2) {
@@ -26,16 +28,27 @@ public class Settings {
         return users;
     }
 
-    public Board getBoard() {
+    public void createBoardWithSize() {
         System.out.println("Enter size of board.");
-        String size = new Scanner(System.in).next();
-        Board board = null;
-        try {
-            board = Board.createBoard(Integer.parseInt(size));
-        } catch (NumberFormatException e){
-            System.out.println("Entered a wrong data. You should enter number.");
+        Scanner sc = new Scanner(System.in);
+        String size = sc.next();
+        while (!validateInput(size)) {
+            System.out.println("Entered invalid data.");
+            size = sc.next();
         }
-        return board;
+        board = Board.createBoard(Integer.parseInt(size));
     }
 
+    private boolean validateInput(String size) {
+        try {
+            Integer.parseInt(size);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    public Board getBoard() {
+        return this.board;
+    }
 }

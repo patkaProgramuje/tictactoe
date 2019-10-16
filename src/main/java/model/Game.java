@@ -8,7 +8,6 @@ public class Game {
 
     private List<User> users;
     private Board board;
-    private Operations operations;
 
     public Game() {
     }
@@ -17,8 +16,7 @@ public class Game {
 
         List<User> users = settings.getUsers();
         Board board = settings.getBoard();
-        Operations operations = new Operations(board.getPlayground());
-        return new Game(users, board, operations);
+        return new Game(users, board);
     }
 
     public Game showInformation() {
@@ -62,13 +60,12 @@ public class Game {
     }
 
     Board getBoard() {
-        return board;
+        return this.board;
     }
 
-    Game(List<User> userList, Board board, Operations operations) {
+    Game(List<User> userList, Board board) {
         this.users = userList;
         this.board = board;
-        this.operations = operations;
     }
 
     private User getActiveUser() {
@@ -86,7 +83,7 @@ public class Game {
             int x = Integer.parseInt(xValue);
             int y = Integer.parseInt(yValue);
             if (x >= board.getSize() || y >= board.getSize()) {
-                showMessageToUser("You entered wrong co-ordinates. Co-ordinates can not be more than " + (board.getSize() - 1));
+                showMessageToUser("You entered wrong co-ordinates. Co-ordinates values can not be more than " + (board.getSize() - 1));
             } else {
                 return Optional.of(new Pair(x, y));
             }
