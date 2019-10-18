@@ -1,32 +1,32 @@
 package model;
 
-public class User {
+class User {
 
     private String nick;
     private Sign sign;
     private boolean isActive;
 
-    public User(String nick) {
+    User(String nick) {
         this.nick = nick;
     }
 
-    public String getNick() {
+    String getNick() {
         return nick;
     }
 
-    public Sign getSign() {
+    Sign getSign() {
         return sign;
     }
 
-    public void setSign(Sign sign) {
+    void setSign(Sign sign) {
         this.sign = sign;
     }
 
-    public boolean isActive() {
+    boolean isActive() {
         return isActive;
     }
 
-    public void setActive(boolean active) {
+    void setActive(boolean active) {
         isActive = active;
     }
 }

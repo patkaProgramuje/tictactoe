@@ -63,7 +63,7 @@ public class Game {
         return this.board;
     }
 
-    Game(List<User> userList, Board board) {
+    private Game(List<User> userList, Board board) {
         this.users = userList;
         this.board = board;
     }

@@ -12,7 +12,7 @@ public class Board {
         this.playground = new Field[size][size];
     }
 
-    public static Board createBoard(int size) {
+    static Board createBoard(int size) {
         Board board = new Board(size);
         board.fillBoard();
         return board;
@@ -22,15 +22,13 @@ public class Board {
         for (int i = 0; i < playground.length; i++) {
             for (int j = 0; j < playground.length; j++) {
                 Field field = new Field();
-                field.setX(i);
-                field.setY(j);
                 field.setSign(Sign.EMPTY);
                 playground[i][j] = field;
             }
         }
     }
 
-    public int getSize() {
+    int getSize() {
         return size;
     }
 
@@ -38,7 +36,7 @@ public class Board {
         return playground;
     }
 
-    public void setSign(int x, int y, Sign sign) throws UnavailableField {
+    void setSign(int x, int y, Sign sign) throws UnavailableField {
         if (playground[x][y].getSign() != Sign.EMPTY) {
             throw new UnavailableField("This field is already occupied.");
         } else {
@@ -46,7 +44,7 @@ public class Board {
         }
     }
 
-    public void showBoard() {
+    void showBoard() {
         for (int i = 0; i < playground.length; i++) {
             for (int j = 0; j < playground.length; j++) {
                 if (playground[i][j].getSign() != Sign.EMPTY) {

@@ -75,13 +75,13 @@ public class Operations {
 
     private Sign checkHorizontal() {
         int subArray = 1;
-        for (int i = 0; i < array.length; i++) {
+        for (Field[] fields : array) {
             for (int j = 0; j < array.length; j++) {
                 if (j < array.length - 1) {
-                    if (array[i][j].getSign().sign.equals(array[i][j + 1].getSign().sign)) {
+                    if (fields[j].getSign().sign.equals(fields[j + 1].getSign().sign)) {
                         subArray += 1;
                         if (subArray == length) {
-                            return array[i][j].getSign();
+                            return fields[j].getSign();
                         }
                     } else {
                         subArray = 1;

@@ -43,8 +43,6 @@ public class OperationsTest {
         for (int i = 0; i < fields.length; i++) {
             for (int j = 0; j < fields.length; j++) {
                 Field field = new Field();
-                field.setX(i);
-                field.setY(j);
                 if (j == t) {
                     field.setSign(Sign.CROSS);
                 } else {
@@ -61,8 +59,6 @@ public class OperationsTest {
         for (int i = 0; i < fields.length; i++) {
             for (int j = 0; j < fields.length; j++) {
                 Field field = new Field();
-                field.setX(i);
-                field.setY(j);
                 if (j == 0) {
                     field.setSign(Sign.CROSS);
                 } else {
@@ -77,8 +73,6 @@ public class OperationsTest {
         for (int i = 0; i < fields.length; i++) {
             for (int j = 0; j < fields.length; j++) {
                 Field field = new Field();
-                field.setX(i);
-                field.setY(j);
                 if (i == j) {
                     field.setSign(Sign.CROSS);
                 } else {
@@ -93,8 +87,6 @@ public class OperationsTest {
         for (int i = 0; i < fields.length; i++) {
             for (int j = 0; j < fields.length; j++) {
                 Field field = new Field();
-                field.setX(i);
-                field.setY(j);
                 if (i == 0) {
                     field.setSign(Sign.CROSS);
                 } else {
